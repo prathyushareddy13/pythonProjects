@@ -8,7 +8,7 @@
         print(j, end=" ")
     print()"""
 
-"""def left_triangle(number):
+def left_triangle(number):
     for i in range(1, number+1):
         space = " " * (number - i)
         reverse_string=""
@@ -17,9 +17,9 @@
         print(space+reverse_string)
 
 input1= int(input("Enter a number:"))
-left_triangle(input1)"""
+left_triangle(input1)
 
-def left_triangle1(number):
+"""def left_triangle1(number):
     for i in range(1, number+1):
         space = " " *(number-i)
         reverse_string = ""
@@ -28,7 +28,7 @@ def left_triangle1(number):
         print(space + reverse_string)
 
 inputL= int(input("Enter a number:"))
-left_triangle1(inputL)
+left_triangle1(inputL)"""
 
 
 

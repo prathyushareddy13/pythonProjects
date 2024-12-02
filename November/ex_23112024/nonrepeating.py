@@ -14,8 +14,8 @@ def set_non_rep(string):
         if string.count(char) == 1:
             print(char)
             break
-        else:
-            print("No Unique character found")
+    else:
+        print("No Unique character found")
 
 
 input_set = input("Enter a set:")

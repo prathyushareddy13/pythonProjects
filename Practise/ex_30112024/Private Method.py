@@ -19,6 +19,6 @@ class Home:
 
 
 fam = Home()
-fam.my_family(True)
+fam.my_family(False)
 #print(fam.father)
 

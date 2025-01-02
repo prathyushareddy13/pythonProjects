@@ -72,3 +72,18 @@ def patch_request(create_bookingid,create_token):
     print(firstname)
     return firstname
 
+@pytest.fixture()
+def delete_request(create_bookingid,create_token):
+    url = "https://restful-booker.herokuapp.com/booking/"
+    book_id = create_bookingid
+    full_url = url + str(book_id)
+    cookie = "token=" + create_token
+
+    header = {
+        "Content-Type": "application/json",
+        "Cookie": cookie
+
+    }
+    response_del = requests.delete(url = full_url,headers=header)
+    status = response_del.status_code
+    return status

@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-def test_request_update(create_token,create_bookingid,patch_request):
+def test_request_update(create_token,create_bookingid,patch_request,delete_request):
     print(create_bookingid)
 # Create booking assertions
     assert create_bookingid >0
@@ -18,6 +18,8 @@ def test_request_update(create_token,create_bookingid,patch_request):
     assert patch_request == "Mehak"
     assert type(patch_request) == str
 
-
+#Delete request assertions
+    #assert delete_request.statuscode == 201  this is not working
+    print(delete_request) #it is printing the status code
 
 

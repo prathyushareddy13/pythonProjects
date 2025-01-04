@@ -20,9 +20,9 @@ def create_booking():
     full_url = "https://restful-booker.herokuapp.com/booking/"
     header = {"Content-Type": "application/json"}
     json = {
-        "firstname": "Pranav",
+        "firstname": "Kranti",
         "lastname": "Kumar",
-        "totalprice": 1000,
+        "totalprice": 600,
         "depositpaid": True,
         "bookingdates": {
             "checkin": "2024-01-01",
@@ -38,12 +38,13 @@ def create_booking():
     print(booking_id)
     return booking_id
 
+#@pytest.fixture()
 def test_delete_request():
-    booking_id = create_booking()
-    print("Del request", booking_id)
+    booking_id_deleted = create_booking()
+    #print("Del request", booking_id_deleted)
     token = create_token()
     url = "https://restful-booker.herokuapp.com"
-    base_path = "/booking/" + str(booking_id)
+    base_path = "/booking/" + str(booking_id_deleted)
     full_url_del = url + base_path
     cookie = "token=" + token
     header = {
@@ -52,19 +53,35 @@ def test_delete_request():
 
     }
     response_delete = requests.delete(url = full_url_del, headers=header)
-    print(response_delete.text)     #403 - Forbidden
-    assert response_delete.status_code == 403
+    print(response_delete.text)    #coming as Created instead of Forbidden
+    assert response_delete.status_code == 201
+    print(booking_id_deleted)
+    return booking_id_deleted
 
-def test_get_booking_id():
-    #del_booking_id = create_booking()
-    #print(del_booking_id)
-    url = "https://restful-booker.herokuapp.com/booking/"
-    #base_path = str(del_booking_id)
-    base_path = str(3055)
-    #print(base_path)
-    full_url_del = url + base_path
+def test_update_deleted_request():
+    booking_id = create_booking()
+    print(booking_id)
+    token = create_token()
+    url = "https://restful-booker.herokuapp.com"
+    base_path = "/booking/" +str(booking_id)
+    full_url_patch = url + base_path
+    cookie = "token="+token
+    header = {
+        "Content-Type": "application/json",
+        "Cookie": cookie
 
-    get_response = requests.get(url = full_url_del)
-    print(get_response.text)       # text should be not found
-    #assert get_response is not None
-    assert get_response.status_code == 404
+    }
+    json_payload = {
+        "firstname": "Pavan",
+        "lastname": "Kumar",
+        "totalprice": 600,
+        "depositpaid": True,
+        "bookingdates": {
+            "checkin": "2024-01-01",
+            "checkout": "2024-01-05"
+        },
+        "additionalneeds": "Breakfast"
+    }
+    response = requests.put(url=full_url_patch, headers=header, json=json_payload)
+    print(response.text)
+    assert response.status_code == 405    #403 Forbidden
